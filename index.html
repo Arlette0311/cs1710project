@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Talk Back · Everyday talk and children's speech</title>
+  <meta name="description" content="A data story about how the adult talk children hear relates to how much they speak, from 2,010 day-long recordings.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="locked">
+
+<!-- icon sprites for the "how to use" chips -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-drag" viewBox="0 0 24 24"><path d="M3 12h18M3 12l4-4M3 12l4 4M21 12l-4-4M21 12l-4 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-hover" viewBox="0 0 24 24"><path d="M6 3l12 9-5.5 1 3 6.5-2.6 1.2-3-6.6L6 18z" fill="currentColor"/></symbol>
+  <symbol id="i-click" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="currentColor"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-toggle" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="10" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="12" r="3" fill="currentColor"/></symbol>
+  <symbol id="i-expand" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-slider" viewBox="0 0 24 24"><path d="M3 12h18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="9" cy="12" r="4" fill="currentColor"/></symbol>
+</svg>
+
+<nav class="nav" aria-label="Story chapters">
+  <div class="nav-inner">
+    <div class="brand">
+      <svg width="22" height="18" viewBox="0 0 22 18" aria-hidden="true"><rect x="0" y="6" width="3" height="6" rx="1.5" fill="#2a78d6"/><rect x="5" y="2" width="3" height="14" rx="1.5" fill="#2a78d6"/><rect x="10" y="0" width="3" height="18" rx="1.5" fill="#eb6834"/><rect x="15" y="4" width="3" height="10" rx="1.5" fill="#eb6834"/></svg>
+      Talk <span>Back</span>
+    </div>
+    <a href="#hook">The question</a>
+    <a href="#growing" class="locked-link">1 · Growing up</a>
+    <a href="#talk" class="locked-link">2 · Talk &amp; speech</a>
+    <a href="#echo" class="locked-link">3 · The echo</a>
+    <a href="#staircase" class="locked-link">4 · Diminishing returns?</a>
+    <a href="#samechild" class="locked-link">5 · Same child</a>
+    <a href="#background" class="locked-link">6 · Background</a>
+    <a href="#message" class="locked-link">The message</a>
+    <a href="#takeaway" class="locked-link">Takeaway</a>
+  </div>
+  <div class="progress"><span id="progress-bar"></span></div>
+</nav>
+
+<!-- ============ HOOK: GUIDED GAME ============ -->
+<section id="hook" class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="kicker">A data story · 2,010 day-long recordings</div>
+      <h1>What matters more for how much a <em>child talks</em>?</h1>
+      <p class="lead">Researchers clipped small audio recorders onto hundreds of young children and recorded an ordinary day.
+        Play a quick 3-step game before the story starts.</p>
+
+      <div class="game" id="game" aria-live="polite">
+        <div class="game-steps"><i class="done"></i><i></i><i></i></div>
+
+        <!-- step 1 -->
+        <div class="game-step active" data-step="1">
+          <p class="game-label">Step 1 of 3 · Pick one</p>
+          <h3>Which do you think better predicts how much a toddler talks?</h3>
+          <div class="options" role="group" aria-label="Choose an answer">
+            <button class="option" data-guess="background">
+              <span class="letter">A</span>
+              <span><b>Family background</b><small>Mother's education, boy or girl, one language or several</small></span>
+            </button>
+            <button class="option" data-guess="talk">
+              <span class="letter">B</span>
+              <span><b>How much adults talk around them</b><small>The voices a child hears through the day</small></span>
+            </button>
+          </div>
+          <p class="choose-cue">Click A or B to continue.</p>
+        </div>
+
+        <!-- step 2 -->
+        <div class="game-step" data-step="2">
+          <p class="game-label">Step 2 of 3 · Guess a number</p>
+          <h3>Two 3- to 4-year-olds. The one who hears the <span class="adult-t">least</span> adult talk makes about
+            <span class="child-t" data-s="by_age_band.3.quintile_medians.0" data-round="0">99</span> speech sounds an hour.
+            How many does the one who hears the <span class="adult-t">most</span> make?</h3>
+          <div class="guess-row">
+            <input type="range" id="guess-slider" min="50" max="500" step="5" value="150" aria-label="Your guess, child vocalizations per hour">
+            <div class="guess-val" id="guess-val">150</div>
+          </div>
+          <p class="choose-cue" style="margin-top:0">Drag the slider, then lock in your guess.</p>
+          <button class="btn-primary" id="guess-lock">Lock in my guess</button>
+        </div>
+
+        <!-- step 3 -->
+        <div class="game-step" data-step="3">
+          <p class="game-label">Step 3 of 3 · The answer</p>
+          <div class="reveal-bars" id="reveal-bars"></div>
+          <div class="verdict" id="verdict"></div>
+          <button class="btn-primary" id="start-story">Start the story <span aria-hidden="true">↓</span></button>
+        </div>
+        <button class="btn-link" id="skip-game">Skip the game and go straight to the story</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><div class="num" data-s="n_children">731</div><div class="lab">children, 2–48 months</div></div>
+        <div class="stat"><div class="num" data-s="n_recordings">2,010</div><div class="lab">recorded days</div></div>
+        <div class="stat"><div class="num" data-s="n_corpora">18</div><div class="lab">research teams</div></div>
+      </div>
+    </div>
+
+    <!-- original illustration: adult and child "in conversation" as sound waves -->
+    <svg class="hero-art" viewBox="0 0 440 400" role="img" aria-label="Illustration of an adult and a child talking, drawn as speech bubbles with sound waves">
+      <defs>
+        <linearGradient id="g-adult" x1="0" x2="1"><stop offset="0" stop-color="#3987e5"/><stop offset="1" stop-color="#2a78d6"/></linearGradient>
+      </defs>
+      <circle cx="220" cy="210" r="170" fill="#ffffff" opacity=".05"/>
+      <circle cx="220" cy="210" r="120" fill="#ffffff" opacity=".05"/>
+      <!-- adult -->
+      <circle cx="120" cy="250" r="34" fill="#f2c7a5"/>
+      <path d="M86 248c0-26 16-40 34-40s34 14 34 38c-10-12-22-16-34-16s-24 6-34 18z" fill="#3b2a24"/>
+      <rect x="70" y="290" width="100" height="110" rx="46" fill="#2a78d6"/>
+      <!-- child -->
+      <circle cx="320" cy="300" r="25" fill="#e8b48e"/>
+      <path d="M296 296c2-20 14-28 24-28s22 8 24 26c-8-8-16-10-24-10s-16 4-24 12z" fill="#5a3a2a"/>
+      <rect x="288" y="328" width="64" height="72" rx="30" fill="#eb6834"/>
+      <!-- adult bubble -->
+      <g transform="translate(40,70)">
+        <rect width="200" height="96" rx="26" fill="url(#g-adult)"/>
+        <path d="M60 94l-6 26 30-26z" fill="#2a78d6"/>
+        <g fill="#fff">
+          <rect class="wave-bar" x="26"  y="30" width="10" height="36" rx="5" style="animation-delay:-.1s"/>
+          <rect class="wave-bar" x="46"  y="20" width="10" height="56" rx="5" style="animation-delay:-.5s"/>
+          <rect class="wave-bar" x="66"  y="14" width="10" height="68" rx="5" style="animation-delay:-.9s"/>
+          <rect class="wave-bar" x="86"  y="24" width="10" height="48" rx="5" style="animation-delay:-.3s"/>
+          <rect class="wave-bar" x="106" y="18" width="10" height="60" rx="5" style="animation-delay:-1.1s"/>
+          <rect class="wave-bar" x="126" y="28" width="10" height="40" rx="5" style="animation-delay:-.7s"/>
+          <rect class="wave-bar" x="146" y="22" width="10" height="52" rx="5" style="animation-delay:-1.3s"/>
+          <rect class="wave-bar" x="166" y="32" width="10" height="32" rx="5" style="animation-delay:-.2s"/>
+        </g>
+      </g>
+      <!-- child bubble -->
+      <g transform="translate(270,170)">
+        <rect width="130" height="74" rx="22" fill="#eb6834"/>
+        <path d="M60 72l4 22 18-22z" fill="#eb6834"/>
+        <g fill="#fff">
+          <rect class="wave-bar" x="22" y="24" width="9" height="26" rx="4.5" style="animation-delay:-.4s"/>
+          <rect class="wave-bar" x="40" y="16" width="9" height="42" rx="4.5" style="animation-delay:-.8s"/>
+          <rect class="wave-bar" x="58" y="20" width="9" height="34" rx="4.5" style="animation-delay:-1.2s"/>
+          <rect class="wave-bar" x="76" y="12" width="9" height="50" rx="4.5" style="animation-delay:-.6s"/>
+          <rect class="wave-bar" x="94" y="22" width="9" height="30" rx="4.5" style="animation-delay:-1s"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<div class="story">
+
+<!-- ============ 1. GROWING UP ============ -->
+<section id="growing">
+  <div class="wrap two-col">
+    <div class="reveal">
+      <p class="chapter"><b>1</b> Growing up</p>
+      <h2>First, children talk more as they grow</h2>
+      <p>Each dot is one child's recorded day. The black line follows the typical (median) child at each age.
+        A baby around 6 months makes about <strong>90</strong> speech-like sounds an hour. By age 3 it is
+        closer to <strong>200</strong>.</p>
+      <p>So every comparison in this story is made <em>between children of similar ages</em>. A 4-year-old
+        out-talking a baby tells us nothing about their homes.</p>
+      <p class="callout">Look at the spread: at every age, some children make two or three times more sounds than
+        others. <strong>What goes along with that difference?</strong></p>
+    </div>
+    <div class="viz-card reveal">
+      <p class="viz-title">How many speech sounds children make per hour, by age</p>
+      <p class="viz-sub">"Speech sounds" = the child's speech-like vocalizations, counted automatically from the recording (crying and laughing excluded).</p>
+      <div class="howto">
+        <span><svg><use href="#i-hover"/></svg>Hover anywhere on the chart to read the typical child at that age</span>
+        <span><svg><use href="#i-toggle"/></svg>Use the checkboxes to filter</span>
+      </div>
+      <div class="legend">
+        <span class="lt">Dot color = age group:</span>
+        <span><i style="background:var(--age-0)"></i>0–11 mo</span><span><i style="background:var(--age-1)"></i>12–23 mo</span>
+        <span><i style="background:var(--age-2)"></i>24–35 mo</span><span><i style="background:var(--age-3)"></i>36–48 mo</span>
+        <span><i class="ln" style="background:var(--ink)"></i>median child</span>
+        <span><i class="sq" style="background:var(--age-1);opacity:.25"></i>middle 50% of children</span>
+      </div>
+      <div class="controls">
+        <label><input type="checkbox" id="age-typical"> Only typically developing children</label>
+        <label><input type="checkbox" id="age-iqr" checked> Show middle-50% band</label>
+      </div>
+      <div id="vis-age"></div>
+    </div>
+  </div>
+  <div class="wrap"><a class="next-link" href="#talk">Next: what goes with the spread? <span>↓</span></a></div>
+</section>
+
+<!-- ============ 2. TALK & SPEECH ============ -->
+<section id="talk" class="alt">
+  <div class="wrap">
+    <div class="narrow reveal">
+      <p class="chapter"><b>2</b> The core relationship</p>
+      <h2>Children who hear more adult talk say more themselves</h2>
+      <p>Across all recordings, more <span class="adult-t">adult talk</span> goes with more <span class="child-t">child speech</span>
+        (correlation r = <strong data-s="r_all">0.30</strong>). On average, each extra 100 adult vocalizations an hour goes with about
+        <strong data-s="slope_per100_all" data-round="0">31</strong> more from the child.</p>
+      <p><strong>Try it:</strong> pick an age group with the buttons, or drag across the bar chart. The orange
+        line gets steeper as children get older.</p>
+    </div>
+    <div class="viz-card reveal" style="margin-top:22px">
+      <p class="viz-title">Adult talk heard vs. child speech produced, one dot per recorded day</p>
+      <div class="howto">
+        <span><svg><use href="#i-drag"/></svg>Drag across the bar chart to pick an age range</span>
+        <span><svg><use href="#i-hover"/></svg>Hover a dot to connect all recordings of that child</span>
+        <span><svg><use href="#i-click"/></svg>Or click a quick-range button</span>
+      </div>
+      <div class="controls">
+        <span>Quick ranges:</span>
+        <button class="btn" data-range="0,11">0–11 mo</button>
+        <button class="btn" data-range="12,23">12–23 mo</button>
+        <button class="btn" data-range="24,35">24–35 mo</button>
+        <button class="btn" data-range="36,48">36–48 mo</button>
+        <button class="btn" data-range="all">All ages</button>
+        <label class="grow"><input type="checkbox" id="sc-typical"> Only typically developing</label>
+      </div>
+      <div class="legend" id="sc-legend"></div>
+      <div id="vis-hist"></div>
+      <div id="vis-scatter"></div>
+      <div class="readout" id="sc-readout"></div>
+      <p class="note">This is a correlation, not proof of cause: talkative children may also draw more talk from adults.
+        Chapter 5 checks the same children on different days.</p>
+    </div>
+  </div>
+  <div class="wrap"><a class="next-link" href="#echo">Next: watch the gap grow <span>↓</span></a></div>
+</section>
+
+<!-- ============ 3. THE ECHO ============ -->
+<section id="echo">
+  <div class="wrap">
+    <div class="narrow reveal">
+      <p class="chapter"><b>3</b> The echo</p>
+      <h2>The gap between quiet and talkative homes widens with age</h2>
+      <p>Each band is drawn like a sound wave, made of real recordings. Within an age group, recordings are lined
+        up from <strong>least</strong> to <strong>most</strong> adult talk. Above the line is the <span class="adult-t">adult talk the child heard</span>.
+        Below the line is the <span class="child-t">child's own speech</span>, its "echo".</p>
+      <p>For babies the orange echo stays almost flat. By ages 3–4 it swells on the right: children in the
+        most talkative fifth of homes make about <strong data-s="by_age_band.3.ratio_top_bottom">3.3</strong>×
+        as many speech sounds as those in the quietest fifth.</p>
+    </div>
+    <div class="viz-card reveal" style="margin-top:22px">
+      <p class="viz-title">The echo: adult talk heard (up) and the child's speech (down), sorted by adult talk</p>
+      <div class="howto">
+        <span><svg><use href="#i-expand"/></svg>Click any age band (or its ⤢ button) to enlarge it</span>
+        <span><svg><use href="#i-hover"/></svg>Hover to read a single recording</span>
+        <span><svg><use href="#i-toggle"/></svg>Switch the spacing to see real adult-talk values</span>
+      </div>
+      <div class="legend">
+        <span><i class="sq" style="background:var(--adult);opacity:.45"></i>one bar = adult talk in one recording</span>
+        <span><i class="ln" style="background:var(--adult)"></i>typical adult talk (rolling median)</span>
+        <span><i class="sq" style="background:var(--child);opacity:.45"></i>one bar = that child's speech</span>
+        <span><i class="ln" style="background:var(--child)"></i>typical child speech in each fifth (number = median)</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Horizontal spacing">
+          <button class="on" data-echo="rank">Even spacing</button>
+          <button data-echo="value">True adult-talk scale</button>
+        </div>
+        <label><input type="checkbox" id="echo-quint" checked> Shade the five fifths</label>
+      </div>
+      <div style="position:relative">
+        <div class="hint-pop" id="echo-hint" style="left:130px;top:-6px"><svg width="15" height="15" style="color:#ffb48f"><use href="#i-expand"/></svg>Click a band to enlarge it</div>
+        <div id="vis-echo"></div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap"><a class="next-link" href="#staircase">Next: does extra talk ever stop mattering? <span>↓</span></a></div>
+</section>
+
+<!-- ============ 4. STAIRCASE ============ -->
+<section id="staircase" class="alt">
+  <div class="wrap two-col">
+    <div class="reveal">
+      <p class="chapter"><b>4</b> Diminishing returns?</p>
+      <h2>Babies level off. Preschoolers keep climbing.</h2>
+      <p>Here each age group's recordings are split into five equal groups by adult talk. The steps show the typical child's speech in each fifth.</p>
+      <p>For babies under 1, child speech barely changes after the second step. For 3- to 4-year-olds there is
+        no plateau: each step up in adult talk comes with more child speech.</p>
+      <p class="callout blue">More talk doesn't stop mattering. Its link with a child's own speech grows as children
+        start to use language themselves.</p>
+    </div>
+    <div class="viz-card reveal">
+      <p class="viz-title">The talk staircase: typical child speech in each fifth of adult talk</p>
+      <div class="howto">
+        <span><svg><use href="#i-hover"/></svg>Hover a step for its numbers</span>
+        <span><svg><use href="#i-toggle"/></svg>Show the individual recordings behind each step</span>
+      </div>
+      <div class="legend">
+        <span class="lt">Step color = age group</span>
+        <span><i class="ln" style="background:var(--age-0)"></i>0–11 mo</span><span><i class="ln" style="background:var(--age-1)"></i>12–23 mo</span>
+        <span><i class="ln" style="background:var(--age-2)"></i>24–35 mo</span><span><i class="ln" style="background:var(--age-3)"></i>36–48 mo</span>
+      </div>
+      <div class="controls">
+        <label><input type="checkbox" id="st-dots"> Show individual recordings</label>
+        <label><input type="checkbox" id="st-shared" checked> Same scale for all ages</label>
+      </div>
+      <div id="vis-staircase"></div>
+    </div>
+  </div>
+  <div class="wrap"><a class="next-link" href="#samechild">Next: is it just different kinds of families? <span>↓</span></a></div>
+</section>
+
+<!-- ============ 5. SAME CHILD ============ -->
+<section id="samechild">
+  <div class="wrap two-col">
+    <div class="reveal">
+      <p class="chapter"><b>5</b> Same child, different days</p>
+      <h2>Even the same child tends to talk more on high-talk days</h2>
+      <p>Maybe chatty families just have chatty kids. To check, we compare children with themselves: many were
+        recorded on several days. Each line connects one child's <strong>quietest</strong> recorded day (least
+        adult talk) to their <strong>busiest</strong> day (most adult talk), recorded close together in age.</p>
+      <p>Across all <span data-s="within_child.children">335</span> children with repeat recordings, the within-child correlation is
+        r = <strong data-s="within_child.r">0.22</strong>, about <strong data-s="within_child.slope_per100_age_adjusted" data-round="0">22</strong> more child sounds per 100 more adult sounds.
+        That is smaller than across children, but it's there. The day-to-day link is real, though noisy.</p>
+    </div>
+    <div class="viz-card reveal">
+      <p class="viz-title">Each line = one child: speech on their lowest- vs. highest-adult-talk day</p>
+      <div class="howto">
+        <span><svg><use href="#i-slider"/></svg>Slide to change how close in age the two days must be</span>
+        <span><svg><use href="#i-hover"/></svg>Hover a line to see that child</span>
+      </div>
+      <div class="legend">
+        <span><i class="ln" style="background:var(--child)"></i>talked more on the high-talk day</span>
+        <span><i class="ln" style="background:var(--axis)"></i>talked less</span>
+        <span><i class="ln" style="background:var(--ink);height:4px"></i>median child</span>
+      </div>
+      <div class="controls">
+        <label>Days at most <b id="sc-gap-val">2</b> months apart
+          <input type="range" id="sc-gap" min="0" max="6" step="1" value="2" style="accent-color:var(--accent)"></label>
+        <div class="seg" role="group" aria-label="Age group" id="sc-band">
+          <button class="on" data-band="all">All</button><button data-band="0–11 mo">0–11</button>
+          <button data-band="12–23 mo">12–23</button><button data-band="24–35 mo">24–35</button><button data-band="36–48 mo">36–48</button>
+        </div>
+      </div>
+      <div id="vis-samechild"></div>
+      <div class="readout" id="samechild-readout"></div>
+    </div>
+  </div>
+  <div class="wrap"><a class="next-link" href="#background">Next: what about family background? <span>↓</span></a></div>
+</section>
+
+<!-- ============ 6. BACKGROUND ============ -->
+<section id="background" class="alt">
+  <div class="wrap">
+    <div class="narrow reveal">
+      <p class="chapter"><b>6</b> What doesn't explain it</p>
+      <h2>Family background is a weaker, less consistent clue</h2>
+      <p>At first glance, some groups look ahead. Children of mothers without a high-school diploma make the most
+        speech sounds. But that group is older on average, and most of its recordings come from a single research team.</p>
+      <p><strong>Flip the switch</strong> to compare children of the <em>same age</em>, hearing the <em>same amount of adult talk</em>,
+        in the same research team. The gaps shrink toward zero.</p>
+    </div>
+    <div class="viz-card reveal" style="margin-top:22px">
+      <p class="viz-title">How far each group sits from the average child (child speech sounds per hour)</p>
+      <div class="howto">
+        <span><svg><use href="#i-toggle"/></svg>Flip between raw averages and a fair comparison</span>
+        <span><svg><use href="#i-hover"/></svg>Hover a dot for group size and average age</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Comparison" id="bg-mode">
+          <button class="on" data-mode="raw">Raw averages</button>
+          <button data-mode="adj">Same age, same talk, same team</button>
+        </div>
+        <button class="btn" id="bg-play">▶ Animate the switch</button>
+      </div>
+      <div class="legend">
+        <span><i style="background:var(--ink)"></i>group average</span>
+        <span><i class="sq" style="background:var(--ink);opacity:.18;height:4px;width:18px"></i>95% range (plausible values)</span>
+        <span><i class="ln" style="background:var(--accent)"></i>0 = no difference from the average child</span>
+      </div>
+      <div id="vis-background"></div>
+      <p class="note" id="bg-note"></p>
+    </div>
+  </div>
+  <div class="wrap"><a class="next-link" href="#message">Next: putting it together <span>↓</span></a></div>
+</section>
+
+<!-- ============ MAIN MESSAGE + RECAP ============ -->
+<section id="message" class="message">
+  <div class="wrap">
+    <div class="narrow reveal">
+      <p class="chapter" style="color:#ffb48f">The message</p>
+      <h2>Across very different families and countries, <em>the talk around a child tracks the talk from the child</em>, and the link grows as they grow.</h2>
+      <p>Mother's education, gender and multilingualism are much less consistent clues. This is an observational
+        pattern, so we do not claim that adding a set amount of talk produces a set amount of child speech.</p>
+    </div>
+    <div class="grid3 reveal" style="margin-top:30px" id="recap"></div>
+  </div>
+</section>
+
+<!-- ============ TAKEAWAY ============ -->
+<section id="takeaway">
+  <div class="wrap takeaway-grid">
+    <div class="reveal">
+      <p class="chapter">Takeaway</p>
+      <h2>What this suggests for parents, caregivers and educators</h2>
+      <p>These are encouragements, not prescriptions. The study shows a pattern, not a recipe, and no one
+        should feel blamed by it.</p>
+    </div>
+    <!-- original illustration: conversation turns -->
+    <svg class="reveal" viewBox="0 0 380 230" role="img" aria-label="Illustration of a conversation: an adult asks, the child answers, the adult builds on it">
+      <circle cx="22" cy="46" r="18" fill="#2a78d6"/><circle cx="22" cy="40" r="7" fill="#f2c7a5"/>
+      <path d="M48 26h170a20 20 0 0 1 20 20v12a20 20 0 0 1-20 20H62l-14 12z" fill="#dbe9fb"/>
+      <text x="64" y="58" font-size="15" fill="#1c5cab" font-weight="700">What did you see?</text>
+      <circle cx="358" cy="122" r="15" fill="#eb6834"/><circle cx="358" cy="117" r="6" fill="#e8b48e"/>
+      <path d="M334 102H184a20 20 0 0 0-20 20v12a20 20 0 0 0 20 20h136l14 12z" fill="#fde3d6"/>
+      <text x="186" y="134" font-size="15" fill="#a8441a" font-weight="700">A big doggy!</text>
+      <circle cx="22" cy="196" r="18" fill="#2a78d6"/><circle cx="22" cy="190" r="7" fill="#f2c7a5"/>
+      <path d="M48 176h214a20 20 0 0 1 20 20v12a20 20 0 0 1-20 20H62l-14 12z" fill="#dbe9fb"/>
+      <text x="64" y="208" font-size="15" fill="#1c5cab" font-weight="700">A big dog! What color was it?</text>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div class="cards">
+      <div class="card reveal">
+        <div class="ic" style="background:var(--adult-soft)"><svg width="28" height="28" viewBox="0 0 24 24"><path d="M4 5h16v10H9l-5 4z" fill="#2a78d6"/></svg></div>
+        <h3>Make room for conversation</h3>
+        <p>Narrate, ask, wait, respond. Everyday back-and-forth is something any household can do, whatever its background.</p></div>
+      <div class="card reveal">
+        <div class="ic" style="background:var(--child-soft)"><svg width="28" height="28" viewBox="0 0 24 24"><path d="M3 20h4v-6H3zm7 0h4V9h-4zm7 0h4V4h-4z" fill="#eb6834"/></svg></div>
+        <h3>Keep it up as children grow</h3>
+        <p>The link between talk heard and talk produced is strongest for 3- and 4-year-olds, so talking with older toddlers still matters.</p></div>
+      <div class="card reveal">
+        <div class="ic" style="background:#dcf3ea"><svg width="28" height="28" viewBox="0 0 24 24"><circle cx="8" cy="9" r="3" fill="#1baf7a"/><circle cx="16" cy="9" r="3" fill="#1baf7a"/><path d="M2 20c0-4 3-6 6-6s6 2 6 6zm8 0c0-4 3-6 6-6s6 2 6 6z" fill="#1baf7a"/></svg></div>
+        <h3>Don't read destiny into demographics</h3>
+        <p>Multilingual homes and less-schooled parents were not behind once age and talk were compared fairly. Avoid deficit assumptions.</p></div>
+    </div>
+    <a class="next-link" href="#hook">Back to the start <span>↑</span></a>
+  </div>
+</section>
+
+<footer id="about">
+  <div class="wrap">
+    <h3>About the data</h3>
+    <p>Bergelson, E., Soderstrom, M., Schwarz, I.-C., Rowland, C. F., Ramírez-Esparza, N., Hamrick, L. R., …
+      Cristia, A. (2023). Everyday language input and production in 1,001 children from six continents.
+      <em>PNAS</em>, 120(52). <a href="https://doi.org/10.1073/pnas.2300671120">doi:10.1073/pnas.2300671120</a>.
+      Public file <code>EL1000_for_reproduce_conf.csv</code> from <a href="https://osf.io/46rcf">osf.io/46rcf</a>
+      (<span data-s="n_recordings">2,010</span> recordings after cleaning). Counts are automatic LENA estimates of vocalizations per hour, not words,
+      so they measure quantity, not quality.</p>
+    <details>
+      <summary>Methods: the statistical model behind chapter 6</summary>
+      <p style="margin-top:8px">A linear mixed model (<span id="mm-formula"></span>) fit to all recordings. Adult talk and its interaction with
+        age are clearly different from zero. None of the background terms are.</p>
+      <table class="method-table" id="mm-table"></table>
+    </details>
+    <h3>Team</h3>
+    <p>CS1710 final project · Arlette Duran, Hebron Geremew, Rhys Greenland.</p>
+  </div>
+</footer>
+</div><!-- /story -->
+
+<div class="tooltip" id="tooltip" role="status"></div>
+
+<script src="js/lib/d3.min.js"></script>
+<script src="js/helpers.js"></script>
+<script src="js/vis_age.js"></script>
+<script src="js/vis_scatter.js"></script>
+<script src="js/vis_echo.js"></script>
+<script src="js/vis_staircase.js"></script>
+<script src="js/vis_samechild.js"></script>
+<script src="js/vis_background.js"></script>
+<script src="js/vis_recap.js"></script>
+<script src="js/story.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

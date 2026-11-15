@@ -1,0 +1,369 @@
+{
+  "n_recordings": 2010,
+  "n_children": 731,
+  "n_corpora": 18,
+  "r_all": 0.302,
+  "slope_per100_all": 30.9,
+  "by_age_band": [
+    {
+      "band": "0–11 mo",
+      "n": 603,
+      "r": 0.263,
+      "median_child": 92.9,
+      "median_adult": 190.9,
+      "slope_per100": 12.1,
+      "quintile_medians": [
+        74.1,
+        93.8,
+        98.6,
+        96.7,
+        107.9
+      ],
+      "gap_top_bottom": 33.8,
+      "ratio_top_bottom": 1.46
+    },
+    {
+      "band": "12–23 mo",
+      "n": 839,
+      "r": 0.363,
+      "median_child": 125.6,
+      "median_adult": 178.2,
+      "slope_per100": 28.5,
+      "quintile_medians": [
+        99.6,
+        110.6,
+        133.8,
+        139.7,
+        160.1
+      ],
+      "gap_top_bottom": 60.5,
+      "ratio_top_bottom": 1.61
+    },
+    {
+      "band": "24–35 mo",
+      "n": 396,
+      "r": 0.361,
+      "median_child": 205.7,
+      "median_adult": 201.9,
+      "slope_per100": 39.1,
+      "quintile_medians": [
+        162.3,
+        192.6,
+        219.1,
+        241.3,
+        250.1
+      ],
+      "gap_top_bottom": 87.8,
+      "ratio_top_bottom": 1.54
+    },
+    {
+      "band": "36–48 mo",
+      "n": 172,
+      "r": 0.545,
+      "median_child": 206.2,
+      "median_adult": 172.9,
+      "slope_per100": 89.6,
+      "quintile_medians": [
+        98.9,
+        167.4,
+        179.6,
+        314.1,
+        328.5
+      ],
+      "gap_top_bottom": 229.7,
+      "ratio_top_bottom": 3.32
+    }
+  ],
+  "by_sex": [
+    {
+      "group": "Boy",
+      "n": 1009,
+      "children": 397,
+      "r": 0.273,
+      "median_child": 131.2,
+      "median_adult": 187.1,
+      "mean_age": 19.3
+    },
+    {
+      "group": "Girl",
+      "n": 1001,
+      "children": 334,
+      "r": 0.337,
+      "median_child": 120.6,
+      "median_adult": 184.4,
+      "mean_age": 17.2
+    }
+  ],
+  "by_language": [
+    {
+      "group": "Monolingual",
+      "n": 1842,
+      "children": 661,
+      "r": 0.304,
+      "median_child": 126.9,
+      "median_adult": 186.2,
+      "mean_age": 18.5
+    },
+    {
+      "group": "Multilingual",
+      "n": 168,
+      "children": 70,
+      "r": 0.267,
+      "median_child": 117.4,
+      "median_adult": 181.0,
+      "mean_age": 15.9
+    }
+  ],
+  "by_mother_ed": [
+    {
+      "group": "Less than high school",
+      "n": 262,
+      "children": 202,
+      "r": 0.328,
+      "median_child": 172.2,
+      "median_adult": 250.2,
+      "mean_age": 22.0
+    },
+    {
+      "group": "High school",
+      "n": 157,
+      "children": 59,
+      "r": 0.391,
+      "median_child": 121.1,
+      "median_adult": 150.1,
+      "mean_age": 23.1
+    },
+    {
+      "group": "Some college / vocational",
+      "n": 309,
+      "children": 115,
+      "r": 0.237,
+      "median_child": 130.4,
+      "median_adult": 182.1,
+      "mean_age": 20.2
+    },
+    {
+      "group": "College degree",
+      "n": 784,
+      "children": 241,
+      "r": 0.258,
+      "median_child": 120.7,
+      "median_adult": 175.8,
+      "mean_age": 17.1
+    },
+    {
+      "group": "Advanced degree",
+      "n": 498,
+      "children": 114,
+      "r": 0.245,
+      "median_child": 113.7,
+      "median_adult": 191.3,
+      "mean_age": 15.3
+    }
+  ],
+  "age_talk_adjusted_mean_residual": {
+    "sex": {
+      "Boy": 2.8,
+      "Girl": -2.8
+    },
+    "language_bg": {
+      "Monolingual": -0.7,
+      "Multilingual": 7.7
+    },
+    "mother_ed": {
+      "Advanced degree": -4.0,
+      "College degree": 1.9,
+      "High school": -11.2,
+      "Less than high school": 6.9,
+      "Some college / vocational": 1.3
+    }
+  },
+  "low_ed_top_corpus": {
+    "corpus": "tamarind",
+    "n": 147,
+    "of": 262
+  },
+  "within_child": {
+    "children": 335,
+    "recordings": 1614,
+    "r": 0.22,
+    "slope_per100_age_adjusted": 22.3
+  },
+  "group_differences": {
+    "sex": [
+      {
+        "group": "Girl",
+        "n": 1001,
+        "children": 334,
+        "mean_age": 17.2,
+        "raw": -7.4,
+        "raw_lo": -13.4,
+        "raw_hi": -1.7,
+        "adj": -2.1,
+        "adj_lo": -6.0,
+        "adj_hi": 1.7
+      },
+      {
+        "group": "Boy",
+        "n": 1009,
+        "children": 397,
+        "mean_age": 19.3,
+        "raw": 7.3,
+        "raw_lo": 1.4,
+        "raw_hi": 13.6,
+        "adj": 2.1,
+        "adj_lo": -1.6,
+        "adj_hi": 6.0
+      }
+    ],
+    "language_bg": [
+      {
+        "group": "Monolingual",
+        "n": 1842,
+        "children": 661,
+        "mean_age": 18.5,
+        "raw": 0.7,
+        "raw_lo": -0.7,
+        "raw_hi": 2.1,
+        "adj": -0.2,
+        "adj_lo": -0.9,
+        "adj_hi": 0.6
+      },
+      {
+        "group": "Multilingual",
+        "n": 168,
+        "children": 70,
+        "mean_age": 15.9,
+        "raw": -7.7,
+        "raw_lo": -21.3,
+        "raw_hi": 9.3,
+        "adj": 2.3,
+        "adj_lo": -6.3,
+        "adj_hi": 11.0
+      }
+    ],
+    "mother_ed": [
+      {
+        "group": "Less than high school",
+        "n": 262,
+        "children": 202,
+        "mean_age": 22.0,
+        "raw": 42.6,
+        "raw_lo": 28.4,
+        "raw_hi": 57.6,
+        "adj": -3.7,
+        "adj_lo": -9.8,
+        "adj_hi": 2.0
+      },
+      {
+        "group": "High school",
+        "n": 157,
+        "children": 59,
+        "mean_age": 23.1,
+        "raw": -4.2,
+        "raw_lo": -22.3,
+        "raw_hi": 14.5,
+        "adj": 3.7,
+        "adj_lo": -8.9,
+        "adj_hi": 17.0
+      },
+      {
+        "group": "Some college / vocational",
+        "n": 309,
+        "children": 115,
+        "mean_age": 20.2,
+        "raw": 8.8,
+        "raw_lo": -4.8,
+        "raw_hi": 24.1,
+        "adj": 1.5,
+        "adj_lo": -9.7,
+        "adj_hi": 12.2
+      },
+      {
+        "group": "College degree",
+        "n": 784,
+        "children": 241,
+        "mean_age": 17.1,
+        "raw": -6.2,
+        "raw_lo": -13.2,
+        "raw_hi": 0.4,
+        "adj": -1.1,
+        "adj_lo": -5.4,
+        "adj_hi": 3.5
+      },
+      {
+        "group": "Advanced degree",
+        "n": 498,
+        "children": 114,
+        "mean_age": 15.3,
+        "raw": -16.8,
+        "raw_lo": -27.9,
+        "raw_hi": -6.5,
+        "adj": 1.5,
+        "adj_lo": -5.4,
+        "adj_hi": 8.9
+      }
+    ]
+  },
+  "mixed_model": {
+    "available": true,
+    "n": 2010,
+    "terms": [
+      {
+        "term": "Adult talk (+100/hr, at mean age)",
+        "estimate": 25.8,
+        "se": 1.9,
+        "p": 0.0
+      },
+      {
+        "term": "Age (+1 year)",
+        "estimate": 63.1,
+        "se": 2.4,
+        "p": 0.0
+      },
+      {
+        "term": "Adult talk x age",
+        "estimate": 14.1,
+        "se": 2.1,
+        "p": 0.0
+      },
+      {
+        "term": "Girl (vs. boy)",
+        "estimate": -0.9,
+        "se": 5.1,
+        "p": 0.861
+      },
+      {
+        "term": "Multilingual (vs. monolingual)",
+        "estimate": 8.7,
+        "se": 9.7,
+        "p": 0.3693
+      },
+      {
+        "term": "Mother: less than high school (vs. college)",
+        "estimate": -5.6,
+        "se": 10.8,
+        "p": 0.6023
+      },
+      {
+        "term": "Mother: high school (vs. college)",
+        "estimate": -1.1,
+        "se": 11.1,
+        "p": 0.9222
+      },
+      {
+        "term": "Mother: some college (vs. college)",
+        "estimate": -1.7,
+        "se": 7.9,
+        "p": 0.834
+      },
+      {
+        "term": "Mother: advanced degree (vs. college)",
+        "estimate": 5.0,
+        "se": 8.2,
+        "p": 0.5365
+      }
+    ],
+    "formula": "child voc/hr ~ adult talk x age + sex + language + mother's education + (1 | corpus) + (1 | child)"
+  }
+}
